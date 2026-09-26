@@ -71,7 +71,7 @@
 #include <net80211/ieee80211_priv.h>
 
 #ifdef IEEE80211_DEBUG
-int	ieee80211_debug = 1;
+int	ieee80211_debug = 0;
 #endif
 
 ///compat for undefined symbols

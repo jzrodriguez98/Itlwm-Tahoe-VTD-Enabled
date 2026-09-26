@@ -313,7 +313,8 @@ ieee80211_inputm(struct _ifnet *ifp, mbuf_t m, struct ieee80211_node *ni,
     dir = wh->i_fc[1] & IEEE80211_FC1_DIR_MASK;
     type = wh->i_fc[0] & IEEE80211_FC0_TYPE_MASK;
     subtype = wh->i_fc[0] & IEEE80211_FC0_SUBTYPE_MASK;
-    
+    XYLog("itlwm: RX frame type=%d subtype=0x%02x from %s\n",
+          type, subtype, ether_sprintf((u_int8_t *)wh->i_addr2));
     if (type != IEEE80211_FC0_TYPE_CTL) {
         hdrlen = ieee80211_get_hdrlen(wh);
         if (mbuf_len(m) < hdrlen) {
@@ -2258,7 +2259,8 @@ ieee80211_recv_auth(struct ieee80211com *ic, mbuf_t m,
     status = LE_READ_2(frm); frm += 2;
     DPRINTF(("auth %d seq %d from %s\n", algo, seq,
              ether_sprintf((u_int8_t *)wh->i_addr2)));
-    
+    XYLog("itlwm: recv_auth algo=%d seq=%d status=%d from %s\n",
+              algo, seq, status, ether_sprintf((u_int8_t *)wh->i_addr2));
     /* only "open" auth mode is supported */
     if (algo != IEEE80211_AUTH_ALG_OPEN) {
         DPRINTF(("unsupported auth algorithm %d from %s\n",
