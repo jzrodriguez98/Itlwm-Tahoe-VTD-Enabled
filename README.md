@@ -36,7 +36,6 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - [rpeshkov](https://github.com/rpeshkov) for [black80211](https://github.com/rpeshkov/black80211)
 - [usr-sse2](https://github.com/usr-sse2) for implementing the usage of Apple RSN Supplicant and bug fixes
 - [zxystd](https://github.com/zxystd) for developing [itlwm](https://github.com/OpenIntelWireless/itlwm)
-- [YBronst](https://github.com/YBronst) for initially setting up this repo, generating various rounds of patching code based on the initial research and sharing it with me to continue the work.
 
 ## Acknowledgements
 
@@ -45,4 +44,4 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - [@iStarForever](https://github.com/XStar-Dev)
 - [@stevezhengshiqi](https://github.com/stevezhengshiqi)
 - [@DogAndPot](https://github.com/DogAndPot) for providing resources and help for system configuration
-- [@Daliansky](https://github.com/Daliansky) for providing Wi-Fi cards Itlwm-Tahoe-VTD-Enabled
+- [@Daliansky](https://github.com/Daliansky) for providing Wi-Fi cards
