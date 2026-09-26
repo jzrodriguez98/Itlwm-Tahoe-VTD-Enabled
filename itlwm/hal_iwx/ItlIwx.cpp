@@ -2512,8 +2512,7 @@ bool allocDmaMemory2(struct iwx_dma_info *dma, size_t size, int alignment)
         numSegs != 1 ||
         ofs != size ||
         seg.fLength != size ||
-        !alignment ||
-        (seg.fIOVMAddr & (alignment - 1)) ||
+        (alignment != 0 && (seg.fIOVMAddr & (alignment - 1))) ||
         !bmd->getBytesNoCopy()) {
         XYLog("%s DMA mapping validation failed: result=0x%x segs=%u ofs=%llu len=%llu addr=0x%llx.\n",
               __FUNCTION__, result, unsigned(numSegs),
