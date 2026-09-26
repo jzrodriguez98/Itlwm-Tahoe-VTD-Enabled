@@ -36,7 +36,7 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - [rpeshkov](https://github.com/rpeshkov) for [black80211](https://github.com/rpeshkov/black80211)
 - [usr-sse2](https://github.com/usr-sse2) for implementing the usage of Apple RSN Supplicant and bug fixes
 - [zxystd](https://github.com/zxystd) for developing [itlwm](https://github.com/OpenIntelWireless/itlwm)
-- [YBronst](https://github.com/YBronst)
+- [YBronst](https://github.com/YBronst) for setting this repo initially and sharing it with me to continue the work
 
 ## Acknowledgements
 
