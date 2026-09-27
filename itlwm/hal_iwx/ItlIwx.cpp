@@ -6938,6 +6938,8 @@ iwx_tx(struct iwx_softc *sc, mbuf_t m, struct ieee80211_node *ni, int ac)
     
     tid = IWX_MGMT_TID;
     qid = sc->first_data_qid;
+    XYLog("itlwm: iwx_tx ENTER type=%d subtype=0x%02x qid=%d family=%d\n",
+          type, subtype, qid, sc->sc_device_family);
 
     /* Put QoS frames on the data queue which maps to their TID. */
     if (ieee80211_has_qos(wh)) {
@@ -7053,6 +7055,7 @@ iwx_tx(struct iwx_softc *sc, mbuf_t m, struct ieee80211_node *ni, int ac)
         nsegs = applevtdTxPrepare(data, m, &segs[0], IWX_TFH_NUM_TBS - 2);
     else
         nsegs = data->map->cursor->getPhysicalSegmentsWithCoalesce(m, &segs[0], IWX_TFH_NUM_TBS - 2);
+    XYLog("itlwm: iwx_tx nsegs=%d\n", nsegs);
     if (nsegs == 0) {
         XYLog("%s: can't map mbuf (error %d)\n", DEVNAME(sc),
               nsegs);
@@ -10519,7 +10522,10 @@ _iwx_start_task(OSObject *target, void *arg0, void *arg1, void *arg2, void *arg3
     mbuf_t m;
     int ac = EDCA_AC_BE; /* XXX */
     
+    XYLog("itlwm: _iwx_start_task ENTER if_flags=0x%x RUNNING=%d oactive=%d\n",
+          ifp->if_flags, (ifp->if_flags & IFF_RUNNING) != 0, ifq_is_oactive(&ifp->if_snd));
     if (!(ifp->if_flags & IFF_RUNNING) ||  ifq_is_oactive(&ifp->if_snd)) {
+        XYLog("itlwm: _iwx_start_task BAIL early\n");
         return kIOReturnError;
     }
     
@@ -10592,7 +10598,8 @@ iwx_start(struct _ifnet *ifp)
 {
     struct iwx_softc *sc = (struct iwx_softc*)ifp->if_softc;
     ItlIwx *that = container_of(sc, ItlIwx, com);
-    that->getMainCommandGate()->attemptAction(_iwx_start_task, &that->com.sc_ic.ic_ac.ac_if);
+    IOReturn gateRet = that->getMainCommandGate()->attemptAction(_iwx_start_task, &that->com.sc_ic.ic_ac.ac_if);
+    XYLog("itlwm: iwx_start attemptAction ret=0x%x\n", gateRet);
 }
 
 void ItlIwx::
