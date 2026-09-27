@@ -41,6 +41,7 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - [YBronst](https://github.com/YBronst) for creating the first iteration of this downstream repository, generating the initial patches and builds attempting to allow AppleVTD enabling with this kext and sharing it with me to continue the development.
 - OpenAI ChatGPT: research and architecture collaboration, evidence analysis, test strategy, independent source review and technical documentation.
 - Anthropic Claude: research and architecture collaboration, evidence analysis, test strategy, and independent source review.
+- [kgp](https://github.com/kgp-macPro)for developing a solution to use Airportitlwm kext with AppleVTD enabled supported by YBronst which was studied to kickstart this repository
 
 ## Acknowledgements
 
