@@ -6902,6 +6902,15 @@ iwx_tx_update_byte_tbl(struct iwx_softc *sc, struct iwx_tx_ring *txq, int idx, u
 int ItlIwx::
 iwx_tx(struct iwx_softc *sc, mbuf_t m, struct ieee80211_node *ni, int ac)
 {
+    struct ieee80211_frame *debug_wh = mtod(m, struct ieee80211_frame *);
+
+    XYLog("%s: iwx_tx ENTER type=0x%x subtype=0x%x len=%u qid=%d\n",
+          DEVNAME(sc),
+          debug_wh->i_fc[0] & IEEE80211_FC0_TYPE_MASK,
+          debug_wh->i_fc[0] & IEEE80211_FC0_SUBTYPE_MASK,
+          mbuf_pkthdr_len(m),
+          sc->first_data_qid);
+
     struct ieee80211com *ic = &sc->sc_ic;
     struct iwx_node *in = (struct iwx_node *)ni;
     struct iwx_tx_ring *ring;
@@ -10516,6 +10525,9 @@ _iwx_start_task(OSObject *target, void *arg0, void *arg1, void *arg2, void *arg3
     struct _ifnet *ifp = (struct _ifnet *)arg0;
     struct iwx_softc *sc = (struct iwx_softc *)ifp->if_softc;
     ItlIwx *that = container_of(sc, ItlIwx, com);
+
+    XYLog("%s: iwx_start_task ENTER\n", DEVNAME(sc));
+
     struct ieee80211com *ic = &sc->sc_ic;
     struct ieee80211_node *ni;
     struct ether_header *eh;
@@ -10596,10 +10608,16 @@ _iwx_start_task(OSObject *target, void *arg0, void *arg1, void *arg2, void *arg3
 void ItlIwx::
 iwx_start(struct _ifnet *ifp)
 {
-    struct iwx_softc *sc = (struct iwx_softc*)ifp->if_softc;
+    struct iwx_softc *sc = (struct iwx_softc *)ifp->if_softc;
     ItlIwx *that = container_of(sc, ItlIwx, com);
-    IOReturn gateRet = that->getMainCommandGate()->attemptAction(_iwx_start_task, &that->com.sc_ic.ic_ac.ac_if);
-    XYLog("itlwm: iwx_start attemptAction ret=0x%x\n", gateRet);
+
+    IOReturn ret = that->getMainCommandGate()->runAction(
+        _iwx_start_task,
+        &that->com.sc_ic.ic_ac.ac_if
+    );
+
+    if (ret != kIOReturnSuccess)
+        XYLog("%s: iwx_start runAction ret=0x%x\n", DEVNAME(sc), ret);
 }
 
 void ItlIwx::
