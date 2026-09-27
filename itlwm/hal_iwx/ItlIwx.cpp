@@ -2388,8 +2388,11 @@ int ItlIwx::applevtdTxPrepare(struct iwx_tx_data *data, mbuf_t packet,
     b.owner = data;
     data->applevtd_token = (uint16_t)token;
     const size_t length = mbuf_pkthdr_len(packet);
-    if (mbuf_copydata(packet, 0, length, b.dma.vaddr) != 0 ||
-        b.dma.cmd->synchronize(kIODirectionOut) != kIOReturnSuccess) {
+    int copyResult = mbuf_copydata(packet, 0, length, b.dma.vaddr);
+    IOReturn syncResult = b.dma.cmd->synchronize(kIODirectionOut);
+    if (copyResult != 0 || syncResult != kIOReturnSuccess) {
+        XYLog("itlwm: applevtdTxPrepare FAIL copy=%d sync=0x%x len=%zu token=%u\n",
+              copyResult, syncResult, length, token);
         if (fAppleVTDTxLock) IOLockLock(fAppleVTDTxLock);
         data->applevtd_token = 0; b.owner = NULL; b.state = AppleVTDTxFree;
         if (fAppleVTDTxLock) IOLockUnlock(fAppleVTDTxLock);
@@ -2414,6 +2417,16 @@ int ItlIwx::applevtdTxPrepare(struct iwx_tx_data *data, mbuf_t packet,
     if (fAppleVTDTxLock) IOLockLock(fAppleVTDTxLock);
     b.state = AppleVTDTxInflight;
     if (fAppleVTDTxLock) IOLockUnlock(fAppleVTDTxLock);
+
+    {
+        uint8_t *p = (uint8_t *)b.dma.vaddr;
+        size_t n = length < 8 ? length : 8;
+        char hex[25] = {0};
+        for (size_t i = 0; i < n; i++)
+            snprintf(hex + i*3, 4, "%02x ", p[i]);
+        XYLog("itlwm: applevtdTxPrepare OK token=%u len=%zu paddr=0x%llx sync=0x%x nsegs=%u bytes=%s\n",
+              token, length, (unsigned long long)b.dma.paddr, syncResult, count, hex);
+    }
 
     return (int)count;
 }
