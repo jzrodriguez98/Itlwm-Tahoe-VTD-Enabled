@@ -39,6 +39,8 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - [usr-sse2](https://github.com/usr-sse2) for implementing the usage of Apple RSN Supplicant and bug fixes
 - [zxystd](https://github.com/zxystd) for developing [itlwm](https://github.com/OpenIntelWireless/itlwm)
 - [YBronst](https://github.com/YBronst) for creating the original repository, generating the initial patches and builds and sharing it with me to continue the development.
+- OpenAI ChatGPT: research and architecture collaboration, evidence analysis, test strategy, independent source review and technical documentation.
+- Claude: research and architecture collaboration, evidence analysis, test strategy, and independent source review.
 
 ## Acknowledgements
 
