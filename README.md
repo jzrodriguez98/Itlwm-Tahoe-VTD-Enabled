@@ -1,9 +1,9 @@
 # itlwm
 
-**Patches to the original itlwm Kernel Extension to allow it loading in macOS 26 with AppleVTD enabled. Testing is being done using this wifi chip:
+**Patches to the original itlwm Kernel Extension to allow it loading in macOS 26 with AppleVTD enabled. Patching and testing is based and being done using this Ax210 wifi chip:
  
 https://a.co/d/0hY4N3fQ
-EDUP PCIE WiFi 6E Card AX210 Bluetooth 5.2 AX5400M 802.11ax Tri-Band 6G/5.8G/2.4GHz Heat Sink 6dBi Antenna PCI-E Wireless Network Cards for Desktop PC Support Windows 11/10 64-bit**
+EDUP PCIE WiFi 6E Card AX210 Bluetooth 5.2 AX5400M 802.11ax Tri-Band 6G/5.8G/2.4GHz Heat Sink 6dBi Antenna PCI-E Wireless Network Cards for Desktop PC Support Windows 11/10 64-bit.**
 
 **An Intel Wi-Fi Adapter Kernel Extension for macOS, based on the OpenBSD Project.**
 
