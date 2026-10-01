@@ -45,6 +45,7 @@ We only accept bug reports in GitHub Issues, before opening an issue, you're rec
 - OpenAI ChatGPT: research and architecture collaboration, evidence analysis, test strategy, independent source review and technical documentation.
 - Anthropic Claude: research and architecture collaboration, evidence analysis, test strategy, and independent source review.
 - [kgp](https://github.com/kgp-macPro) for developing a solution to use Airportitlwm kext with AppleVTD enabled supported by YBronst which was studied and leveraged to kickstart this repository
+- deeveedee for contributing to the first release by updating the code to fix a race condition and enabling AX201 kext support.
 
 ## Acknowledgements
 
